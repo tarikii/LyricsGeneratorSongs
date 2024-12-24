@@ -3,7 +3,7 @@
 This is a website where you upload your favorite songs (in .flac format), the AI (whisper) process the lyrics and interprets it, and when it is done, you get a link to download the lyrics in .txt format
 
 ## KEEP IN MIND
-- At the core of this project, we are building a lyrics generator using a free AI technology called Whisper, for transcription. While the system is designed to extract lyrics from songs and transcribe them into text, it is important to note a few key considerations:
+- At the core of this project, I am building a lyrics generator using a free AI technology called Whisper, for transcription. While the system is designed to extract lyrics from songs and transcribe them into text, it is important to note a few key considerations:
 
     1. The generated lyrics are based on automatic speech recognition (ASR). This means the accuracy of the transcription will depend on the quality of the audio, background noise, and the clarity of the vocals in the song.
 
