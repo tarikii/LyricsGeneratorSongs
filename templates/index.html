@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Song Lyrics Transcription</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Upload Your Song</h1>
+        <form id="uploadForm" method="POST" enctype="multipart/form-data">
+            <input type="file" name="file" accept=".flac" required>
+            <button type="submit">Upload and Transcribe</button>
+        </form>
+        <div id="result"></div>
+    </div>
+
+    <script>
+        const form = document.getElementById('uploadForm');
+        const resultDiv = document.getElementById('result');
+    
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const formData = new FormData(form);
+    
+            resultDiv.textContent = "Processing...";
+            try {
+                const response = await fetch('/upload', {
+                    method: 'POST',
+                    body: formData
+                });
+    
+                // Check if the response was ok
+                const data = await response.json();
+                if (response.ok) {
+                    // Assuming `data.text` is where the transcription result is stored
+                    resultDiv.innerHTML = `<p>${data.text}</p>`;
+                    if (data.download_url) {
+                        // If a download URL is present, provide the link
+                        resultDiv.textContent = "Successfull lyrics generated";
+                        resultDiv.style = "color: green;";
+                        resultDiv.innerHTML += `<br><br><a href="${data.download_url}">Download Lyrics</a>`;
+                    }
+                } else {
+                    resultDiv.textContent = `Error: ${data.text || "Unknown error"}`;
+                }
+            } catch (error) {
+                console.error("Error during submission:", error);
+                resultDiv.textContent = "Error during transcription.";
+            }
+        });
+    </script>    
+</body>
+</html>
